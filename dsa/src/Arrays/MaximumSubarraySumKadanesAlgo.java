@@ -17,6 +17,7 @@ public class MaximumSubarraySumKadanesAlgo {
         }
 
         //Logic
+        //O(n)
         int currSum = 0, max_sum = Integer.MIN_VALUE;
         for(int val : arr){
             currSum += val;
