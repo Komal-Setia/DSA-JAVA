@@ -14,15 +14,15 @@ public class BookAllocation {
     public static int allocateBooks(int[] pagesArray, int noOfBooks, int noOfStudents) {
         int start = 0;
         int end = 0;
-        int mid = 0;
+        int mid;
         int ans = -1;
-        for (int i = 0; i < pagesArray.length; i++) {
+        for (int i = 0; i < noOfBooks; i++) {
             end += pagesArray[i];
         }
 
         while (start <= end) {
             mid = start + (end - start) / 2;
-            if (isValid(pagesArray, mid, noOfStudents)) {
+            if (isValid(pagesArray, noOfBooks, noOfStudents, mid)) {
                 //search in left
                 ans = mid;
                 end = mid - 1;
@@ -34,11 +34,11 @@ public class BookAllocation {
         return ans;
     }
 
-    private static boolean isValid(int[] pagesArray, int maxPagesAllowed, int noOfStudents) {
+    private static boolean isValid(int[] pagesArray, int noOfBooks, int noOfStudents, int maxPagesAllowed) {
         int student = 1;
         int pages = 0;
 
-        for (int i = 0; i < pagesArray.length; i++) {
+        for (int i = 0; i < noOfBooks; i++) {
             if (pagesArray[i] > maxPagesAllowed) {
                 return false;
             }
@@ -49,10 +49,6 @@ public class BookAllocation {
                 pages = pagesArray[i];
             }
         }
-        if (student > noOfStudents) {
-            return false;
-        } else {
-            return true;
-        }
+        return student <= noOfStudents;
     }
 }
